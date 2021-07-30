@@ -172,8 +172,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successful operation",
+          "201": {
+            "description": "Product successfully saved",
             "content": {
               "application/json": {
                 "schema": {
