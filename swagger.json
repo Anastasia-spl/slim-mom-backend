@@ -203,7 +203,7 @@
             "name": "date",
             "required": true,
             "type": "string",
-            "description": "Date of the day to search eaten product list"
+            "description": "Date of the day to search eaten product list, format: DD.MM.YYYY"
           }],
         "security": [
           {
@@ -728,7 +728,7 @@
           },
           "date": {
             "type": "string",
-            "description": "Date product was eaten",
+            "description": "Date product was eaten, format: DD.MM.YYYY",
             "example": "29.07.2021"
           }
         }
