@@ -14,7 +14,7 @@ const {
   getEatenProductsController,
 } = require("../controllers/productsController");
 
-router.get("/recommendation", userInfoValidation , asyncWrapper(publicRecommendationController));
+router.get("/recommendation", asyncWrapper(publicRecommendationController));
 
 router.use(authMiddleware);
 router.get("/search", asyncWrapper(searchProductsController));

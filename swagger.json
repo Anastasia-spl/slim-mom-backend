@@ -444,6 +444,31 @@
             "type": "string",
             "description": "User's password",
             "example": "qwerty123"
+          },
+          "height" : {
+            "type": "number",
+            "description": "User's height",
+            "example": 178
+          },
+          "weight" : {
+            "type": "number",
+            "description": "User's weight",
+            "example": 63
+          },
+          "desiredWeight" : {
+            "type": "number",
+            "description": "User's desired weight",
+            "example": 60
+          },
+          "age" : {
+            "type": "number",
+            "description": "User's age",
+            "example": 34
+          },
+          "bloodGroup": {
+            "type": "number",
+            "description": "User's bloodGroup",
+            "example": 3
           }
         }
       },
