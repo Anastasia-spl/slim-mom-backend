@@ -1,3 +1,4 @@
+const date = require('date-and-time');
 const {
   searchProducts,
   publicRecommendation,
@@ -67,7 +68,13 @@ const deleteEatenProductsController = async (req, res) => {
 
 const getEatenProductsController = async (req, res) => {
   const owner  = req.userId;
-  const { date: dateToFind } = req.params;  
+  const { date: dateToFind } = req.query; 
+  if (!dateToFind) {
+    throw new ClientError("Provide the date")
+  }
+  if (!date.isValid(dateToFind, 'DD.MM.YYYY')) {
+     throw new ClientError("Wrong format, expected: DD.MM.YYYY")
+  }
   const userFoodListByDay = await getEatenProducts({owner, dateToFind});
   res.json({ message: "success", userFoodListByDay });
 };
