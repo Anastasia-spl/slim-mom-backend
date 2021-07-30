@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const { User } = require("../db/userModel");
+
 const {
   NotAuthorizedError,
   RegistrationConflictError,
@@ -55,6 +57,32 @@ const registration = async ({
     age,
   });
   await user.save();
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+      user: "",
+      pass: "",
+    },
+  });
+
+  const options = {
+    to: email,
+    from: "",
+    subject: "Thank you for registering",
+    text: "Thank you for registering at SlimMom.com! Stay slim and healthy!",
+  };
+
+  transporter.sendMail(options, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+    console.log("Message has been sent!");
+  });
+
   return logIn({ login, password });
 };
 
@@ -73,15 +101,18 @@ const logOut = async (userId) => {
 };
 
 const checkCurrentUser = async (token) => {
-  const user = await User.findOne({ token })
-    .select({ password: 0, "__v": 0, _id: 0 })
+  const user = await User.findOne({ token }).select({
+    password: 0,
+    __v: 0,
+    _id: 0,
+  });
 
-  return user
-}
+  return user;
+};
 
 module.exports = {
   registration,
   logIn,
   logOut,
-  checkCurrentUser
+  checkCurrentUser,
 };

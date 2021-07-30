@@ -1,5 +1,9 @@
 const Joi = require("joi");
 
+const pwdcheck =
+  /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+const pwdcheckError = "6 characters with upper and lower case";
+
 const checkValidation = (schema, req, res, next) => {
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
@@ -17,7 +21,9 @@ const userRegistrationValidation = (req, res, next) => {
         tlds: { allow: ["com", "net", "ru"] },
       })
       .required(),
-    password: Joi.string().pattern(RegExp("^[a-zA-Z0-9]{6,14}$")).required(),
+    password: Joi.string()
+      .pattern(new RegExp(pwdcheck), pwdcheckError)
+      .required(),
     height: Joi.string().min(2).max(3),
     weight: Joi.string().min(2).max(3),
     age: Joi.string().min(2).max(3),
@@ -41,7 +47,9 @@ const userInfoValidation = (req, res, next) => {
 const userLoginValidation = (req, res, next) => {
   const schema = Joi.object({
     login: Joi.string().min(4).max(14).required(),
-    password: Joi.string().pattern(RegExp("^[a-zA-Z0-9]{6,14}$")).required(),
+    password: Joi.string()
+      .pattern(new RegExp(pwdcheck), pwdcheckError)
+      .required(),
   });
   checkValidation(schema, req, res, next);
 };
@@ -54,11 +62,11 @@ const addProductValidation = (req, res, next) => {
     date: Joi.string().required(),
   });
   checkValidation(schema, req, res, next);
-}
+};
 
 module.exports = {
   userRegistrationValidation,
   userInfoValidation,
   userLoginValidation,
-  addProductValidation
+  addProductValidation,
 };

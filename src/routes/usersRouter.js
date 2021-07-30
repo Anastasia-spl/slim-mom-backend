@@ -12,7 +12,7 @@ const {
   registrationController,
   logInController,
   logOutController,
-  currentUserController
+  currentUserController,
 } = require("../controllers/usersController");
 
 router.post(
@@ -20,6 +20,7 @@ router.post(
   userRegistrationValidation,
   asyncWrapper(registrationController)
 );
+
 router.post("/login", userLoginValidation, asyncWrapper(logInController));
 router.post("/logout", authMiddleware, asyncWrapper(logOutController));
 router.get("/current", authMiddleware, asyncWrapper(currentUserController));
