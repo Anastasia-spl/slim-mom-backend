@@ -18,7 +18,7 @@ const searchProductsController = async (req, res) => {
 };
 
 const publicRecommendationController = async (req, res) => {
-  const { bloodGroup } = req.body;
+  const { bloodGroup } = req.query;
   if (Number.isNaN(bloodGroup)) {
     throw new ClientError("Blood group must be a number")
   }

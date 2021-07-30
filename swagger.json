@@ -75,18 +75,13 @@
           "Products"
         ],
         "summary": "Returns a list of not recommended product categories",
-        "parameters": [],
-        "requestBody": {
-          "description": "User's blood number",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecommendationRequest"
-              }
-            }
-          }
-        },
+        "parameters": [{
+            "in": "query",
+            "name": "bloodGroup",
+            "required": true,
+            "type": "number",
+            "description": "User's blood group"
+          }],
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -684,19 +679,6 @@
             }
           ]
         
-      },
-      "RecommendationRequest": {
-        "type": "object",
-        "required": [
-          "bloodGroup"
-        ],
-        "properties": {
-          "bloodGroup": {
-            "type": "number",
-            "description": "User's blood group",
-            "example": 2
-          }
-        }
       },
       "RecommendationResponse": {
         "type": "object",
