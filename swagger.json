@@ -148,7 +148,7 @@
         }
       }
     },
-    "/products/eaten": {
+    "/products/add": {
       "post": {
         "tags": [
           "Products"
@@ -190,8 +190,10 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/products/eaten" : {
+      "post": {
         "tags": [
           "Products"
         ],
@@ -230,7 +232,7 @@
           }
         }
       }
-    },
+    ,
     "/users/registration": {
       "post": {
         "tags": [
@@ -377,7 +379,7 @@
         }
       }
     },
-    "/products/eaten/:id": {
+    "/products/delete/:id": {
       "delete": {
         "tags": [
           "Products"
