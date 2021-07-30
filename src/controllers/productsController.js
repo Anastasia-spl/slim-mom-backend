@@ -48,14 +48,14 @@ const privateRecommendationController = async (req, res) => {
 const addEatenProductsController = async (req, res) => {
   const owner = req.userId;
   const { title, weight, calories, date } = req.body;
-  const savedProductId = await addEatenProducts({
+  await addEatenProducts({
     title,
     weight,
     calories,
     date,
     owner,
   });
-  res.json({ message: "success", savedProductId });
+  res.json({ message: "Product successfully saved" });
 };
 
 const deleteEatenProductsController = async (req, res) => {
@@ -67,7 +67,7 @@ const deleteEatenProductsController = async (req, res) => {
 
 const getEatenProductsController = async (req, res) => {
   const owner  = req.userId;
-  const { date: dateToFind } = req.body;
+  const { date: dateToFind } = req.params;
   const userFoodListByDay = await getEatenProducts({owner, dateToFind});
   res.json({ message: "success", userFoodListByDay });
 };

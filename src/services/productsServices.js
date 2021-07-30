@@ -89,7 +89,6 @@ const addEatenProducts = async ({ title, weight, calories, owner, date }) => {
     { owner },
     { $push: { eatenProducts: { _id, title, weight, calories, date } } }
   );
-  return _id;
 };
 
 const deleteEatenProducts = async ({ eatenProductId, owner }) => {
@@ -125,6 +124,7 @@ const getEatenProducts = async ({owner, dateToFind}) => {
 
   return userFoodListByDate;
 };
+
 module.exports = {
   searchProducts,
   publicRecommendation,

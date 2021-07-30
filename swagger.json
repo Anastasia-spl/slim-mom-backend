@@ -148,7 +148,7 @@
         }
       }
     },
-    "/products/add": {
+    "/products": {
       "post": {
         "tags": [
           "Products"
@@ -193,28 +193,23 @@
       }
     },
     "/products/eaten" : {
-      "post": {
+      "get": {
         "tags": [
           "Products"
         ],
         "summary": "Get the eaten product on a specific day",
-        "parameters": [],
+        "parameters": [{
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "type": "string",
+            "description": "Date of the day to search eaten product list"
+          }],
         "security": [
           {
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Requested date",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetEatenProductsRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -379,7 +374,7 @@
         }
       }
     },
-    "/products/delete/:id": {
+    "/products/:id": {
       "delete": {
         "tags": [
           "Products"
@@ -743,28 +738,14 @@
         "items": {
           "type": "object",
           "properties": {
-            "savedProductId": {
+            "message": {
               "type": "string",
-              "description": "Id of saved product"
+              "description": "Result of operation"
             }
           }
         },
         "example": {
-          "message": "success",
-          "savedProductId": "61001b689081880004a65f49"
-        }
-      },
-      "GetEatenProductsRequest": {
-        "type": "object",
-        "required": [
-          "date"
-        ],
-        "properties": {
-          "date": {
-            "type": "string",
-            "description": "The requested date to get the food list",
-            "example": "01.05.21"
-          }
+          "message": "Product successfully saved"
         }
       },
       "GetEatenProductsResponse": {

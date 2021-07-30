@@ -19,8 +19,8 @@ router.get("/recommendation", asyncWrapper(publicRecommendationController));
 router.use(authMiddleware);
 router.get("/search", asyncWrapper(searchProductsController));
 router.post("/recommendation", userInfoValidation, asyncWrapper(privateRecommendationController));
-router.post("/add",addProductValidation , asyncWrapper(addEatenProductsController));
-router.delete("/delete/:id", asyncWrapper(deleteEatenProductsController));
-router.post("/eaten", asyncWrapper(getEatenProductsController));
+router.post("/",addProductValidation , asyncWrapper(addEatenProductsController));
+router.delete("/:id", asyncWrapper(deleteEatenProductsController));
+router.get("/eaten", asyncWrapper(getEatenProductsController));
 
 module.exports = { productsRouter: router };
