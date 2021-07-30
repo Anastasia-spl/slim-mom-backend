@@ -741,11 +741,22 @@
             "message": {
               "type": "string",
               "description": "Result of operation"
+            },
+            "product": {
+              "type": "object",
+              "description": "Description of saved product"
             }
           }
         },
         "example": {
-          "message": "Product successfully saved"
+          "message": "Product successfully saved",
+          "product" : {
+              "_id": "610194d7cdcd37c2ca8d3225",
+              "title": "pizza",
+              "weight": "100",
+              "calories": "320",
+              "date": "01.06.21"
+          }
         }
       },
       "GetEatenProductsResponse": {

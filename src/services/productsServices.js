@@ -83,12 +83,13 @@ const addEatenProducts = async ({ title, weight, calories, owner, date }) => {
       eatenProducts: [{ _id, title, weight, calories, date }],
     });
     await newUserProductList.save();
-    return _id;
+    return {_id, title, weight, calories, date };
   }
   await EatenProducts.findOneAndUpdate(
     { owner },
     { $push: { eatenProducts: { _id, title, weight, calories, date } } }
   );
+  return {_id, title, weight, calories, date };
 };
 
 const deleteEatenProducts = async ({ eatenProductId, owner }) => {
