@@ -8,16 +8,25 @@ const { QueryError, ClientError } = require("../helpers/errors");
 
 const searchProducts = async (query) => { 
   const allProductsList = await Products.find({});
-  const templatedQuery = query.trim().toLowerCase().split(" ");
-  const queriedProducts = allProductsList.filter((product) => {
-    const templatedTitle = product.title.ru.toLowerCase().split(" ");
-    let coincidences = true;
-    for (const queryWord of templatedQuery) {
-      if (!templatedTitle.includes(queryWord)) {
-        coincidences = false;
+  let queriedProducts;
+  if (query.includes(" ")) {
+    queriedProducts = allProductsList.filter((product) => {
+      const templatedQuery = query.trim().toLowerCase().split(" ");
+      const templatedTitle = product.title.ru.toLowerCase().split(" ");
+      let coincidences = true;
+      for (const queryWord of templatedQuery) {
+        if (!templatedTitle.includes(queryWord)) {
+          coincidences = false;
+        }
       }
-    }
-    return coincidences;
+      return coincidences;
+    });
+    return queriedProducts;
+  }
+  queriedProducts = allProductsList.filter((product) => {
+    const templatedQuery = query.trim().toLowerCase();
+    const templatedTitle = product.title.ru.toLowerCase();
+    return templatedTitle.includes(templatedQuery)
   });
 
   if (queriedProducts.length === 0) {
