@@ -232,7 +232,7 @@
           }
         }
       }
-    ,
+    },
     "/users/registration": {
       "post": {
         "tags": [
