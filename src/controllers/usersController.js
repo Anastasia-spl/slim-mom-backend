@@ -3,7 +3,7 @@ const {
   logIn,
   logOut,
   checkCurrentUser,
-  registrationConfirmation,
+  // registrationConfirmation,
 } = require("../services/authService");
 
 const registrationController = async (req, res, next) => {
@@ -27,15 +27,15 @@ const registrationController = async (req, res, next) => {
     bloodGroup,
     age,
   });
-  res.status(201).json({ user: login, email });
+  res.status(201).json({ user });
 };
 
-const registrationConfirmationController = async (req, res) => {
-  const { code } = req.params;
+// const registrationConfirmationController = async (req, res) => {
+//   const { code } = req.params;
 
-  await registrationConfirmation(code);
-  res.status(200).json({ message: "success" });
-};
+//   await registrationConfirmation(code);
+//   res.status(200).json({ message: "success" });
+// };
 
 const logInController = async (req, res, next) => {
   const { login, password } = req.body;
@@ -61,5 +61,5 @@ module.exports = {
   logInController,
   logOutController,
   currentUserController,
-  registrationConfirmationController,
+  // registrationConfirmationController,
 };
