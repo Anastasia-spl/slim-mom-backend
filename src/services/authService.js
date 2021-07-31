@@ -1,17 +1,24 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const sha256 = require("sha256");
 
+const { sendEmail } = require("./emailService");
 const { User } = require("../db/userModel");
+const { Verification } = require("../db/verificationModel");
 const {
   NotAuthorizedError,
   RegistrationConflictError,
 } = require("../helpers/errors");
 
 const logIn = async ({ login, password }) => {
-  const user = await User.findOne({ login });
+  const user = await User.findOne({ login, confirmed: true });
 
+  if (user.confirmed === false) {
+    throw new NotAuthorizedError("Please, check your email for further steps");
+  }
   if (!user) {
-    throw new NotAuthorizedError("Login  is wrong");
+    throw new NotAuthorizedError(`No user with login: ${login} found.`);
   }
   if (!(await bcrypt.compare(password, user.password))) {
     throw new NotAuthorizedError("Password is wrong");
@@ -55,7 +62,20 @@ const registration = async ({
     age,
   });
   await user.save();
-  return logIn({ login, password });
+
+  const code = sha256(email + process.env.JWT_SECRET);
+
+  const verification = new Verification({
+    code,
+    userId: user._id,
+  });
+  await verification.save();
+
+  await sendEmail(code, email);
+
+  return user;
+  // await logIn({ login, password });
+  // Сначала пользователь должен пройти верификацию почты, и только затем логиниться
 };
 
 const logOut = async (userId) => {
@@ -73,15 +93,44 @@ const logOut = async (userId) => {
 };
 
 const checkCurrentUser = async (token) => {
-  const user = await User.findOne({ token })
-    .select({ password: 0, "__v": 0, _id: 0 })
+  const user = await User.findOne({ token }).select({
+    password: 0,
+    __v: 0,
+    _id: 0,
+  });
 
-  return user
-}
+  return user;
+};
+
+const registrationConfirmation = async (code) => {
+  const verification = await Verification.findOne({
+    code,
+    active: true,
+  });
+
+  if (!verification) {
+    throw new NotAuthorizedError("Invalid or expired confirmation code!");
+  }
+
+  const user = await User.findById(verification.userId);
+
+  if (!user) {
+    throw new NotAuthorizedError("No user found!");
+  }
+
+  verification.active = false;
+  await verification.save();
+
+  user.confirmed = true;
+  await user.save();
+
+  return user;
+};
 
 module.exports = {
   registration,
   logIn,
   logOut,
-  checkCurrentUser
+  checkCurrentUser,
+  registrationConfirmation,
 };

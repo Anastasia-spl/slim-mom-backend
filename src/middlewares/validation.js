@@ -54,11 +54,11 @@ const addProductValidation = (req, res, next) => {
     date: Joi.string().required(),
   });
   checkValidation(schema, req, res, next);
-}
+};
 
 module.exports = {
   userRegistrationValidation,
   userInfoValidation,
   userLoginValidation,
-  addProductValidation
+  addProductValidation,
 };
