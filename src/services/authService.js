@@ -14,15 +14,9 @@ const {
 const logIn = async ({ login, email, password }) => {
   const user = await User.findOne({ login });
 
-  // if (user.confirmed === false) {
-  //   throw new NotAuthorizedError("Please, check your email for further steps");
-  // }
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new NotAuthorizedError(`Wrong password or login`);
   }
-  // if (!(await bcrypt.compare(password, user.password))) {
-  //   throw new NotAuthorizedError("Password is wrong");
-  // }
 
   const token = jwt.sign(
     {
@@ -73,9 +67,7 @@ const registration = async ({
 
   await sendEmail(login, email);
 
-  // return user;
   return logIn({ login, email, password });
-  // Сначала пользователь должен пройти верификацию почты, и только затем логиниться
 };
 
 const logOut = async (userId) => {
