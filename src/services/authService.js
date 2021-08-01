@@ -1,11 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const nodemailer = require("nodemailer");
-// const sha256 = require("sha256");
-
 const { sendEmail } = require("./emailService");
 const { User } = require("../db/userModel");
-// const { Verification } = require("../db/verificationModel");
 const {
   NotAuthorizedError,
   RegistrationConflictError,
@@ -57,14 +53,6 @@ const registration = async ({
   });
   await user.save();
 
-  // const code = sha256(email + process.env.JWT_SECRET);
-
-  // const verification = new Verification({
-  //   code,
-  //   userId: user._id,
-  // });
-  // await verification.save();
-
   await sendEmail(login, email);
 
   return logIn({ login, email, password });
@@ -94,35 +82,9 @@ const checkCurrentUser = async (token) => {
   return user;
 };
 
-// const registrationConfirmation = async (code) => {
-//   const verification = await Verification.findOne({
-//     code,
-//     active: true,
-//   });
-
-//   if (!verification) {
-//     throw new NotAuthorizedError("Invalid or expired confirmation code!");
-//   }
-
-//   const user = await User.findById(verification.userId);
-
-//   if (!user) {
-//     throw new NotAuthorizedError("No user found!");
-//   }
-
-//   verification.active = false;
-//   await verification.save();
-
-//   user.confirmed = true;
-//   await user.save();
-
-//   return user;
-// };
-
 module.exports = {
   registration,
   logIn,
   logOut,
-  checkCurrentUser,
-  // registrationConfirmation,
+  checkCurrentUser
 };
