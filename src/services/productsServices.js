@@ -35,12 +35,7 @@ const searchProducts = async ({ query, page, limit }) => {
   }
 
   const paginateFrom = (page * limit - limit);
-  const paginateTo = (page * limit);
-  console.log(paginateFrom)
-  console.log(paginateTo)
-  
-  const paginatedResponse = [...queriedProducts].splice(paginateFrom, paginateTo)
-
+  const paginatedResponse = [...queriedProducts].splice(paginateFrom, limit)
   return paginatedResponse;
 };
 
