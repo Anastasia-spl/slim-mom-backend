@@ -44,6 +44,20 @@
             "required": true,
             "type": "string",
             "description": "Title of product to search"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "number",
+            "description": "Page of products list to return (default is 1)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "number",
+            "description": "Amount of products per page (default is 7)"
           }
         ],
         "security": [

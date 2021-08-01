@@ -10,11 +10,15 @@ const {
 const { QueryError, ClientError } = require('../helpers/errors')
 
 const searchProductsController = async (req, res) => {
-  const { query } = req.query;
+  const {
+    query,
+    page = 1,
+    limit = 7,
+  } = req.query;
   if (!query) {
     throw new QueryError('Provide a query string')
   }
-  const productsList = await searchProducts(query);
+  const productsList = await searchProducts({query, page, limit});
   res.json({ message: "success", productsList });
 };
 
