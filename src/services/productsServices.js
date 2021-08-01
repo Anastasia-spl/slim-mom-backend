@@ -6,8 +6,9 @@ const { User } = require("../db/userModel");
 
 const { QueryError, ClientError } = require("../helpers/errors");
 
-const searchProducts = async (query) => { 
-  const allProductsList = await Products.find({});
+const searchProducts = async ({ query, page, limit }) => { 
+  const allProductsList = await Products.find({}).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
+  
   let queriedProducts;
   if (query.includes(" ")) {
     queriedProducts = allProductsList.filter((product) => {
@@ -32,7 +33,15 @@ const searchProducts = async (query) => {
   if (queriedProducts.length === 0) {
     throw new QueryError("No product found. Try another title.");
   }
-  return queriedProducts;
+
+  const paginateFrom = (page * limit - limit);
+  const paginateTo = (page * limit);
+  console.log(paginateFrom)
+  console.log(paginateTo)
+  
+  const paginatedResponse = [...queriedProducts].splice(paginateFrom, paginateTo)
+
+  return paginatedResponse;
 };
 
 const publicRecommendation = async (bloodGroup) => {
