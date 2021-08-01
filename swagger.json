@@ -638,55 +638,32 @@
               "type": "number",
               "description": "Product's calories (for 100g)",
               "example": "623"
-            },
-            "groupBloodNotAllowed": {
-              "type": "array",
-              "description": "Array of booleans. If product is not recommended the meaning is 'true' ",
-              "example": [
-                null,
-                true,
-                false,
-                false,
-                false
-              ]
             }
           }
         },
         "example": 
           [
-            {"categories": [
-              "яйца"
-            ],
-            "weight": 100,
-            "title": {
-              "ru": "Яйцо куриное (желток сухой)",
-              "ua": "Яйце куряче (жовток сухий)"
+            {
+              "categories": [
+                "яйца"
+              ],
+              "weight": 100,
+              "title": {
+                "ru": "Яйцо куриное (желток сухой)",
+                "ua": "Яйце куряче (жовток сухий)"
+              },
+              "calories": 623
             },
-            "calories": 623,
-            "groupBloodNotAllowed": [
-              null,
-              true,
-              false,
-              false,
-              false
-            ]
-            },
-            {"categories": [
-              "мучные"
-            ],
-            "weight": 100,
-            "title": {
-                "ru": "Смесь мучная без глютена Гарнец Шоколадный торт",
-                "ua": "Суміш борошняна без глютену Гарнець Шоколадний торт"
-            },
-            "calories": 350,
-            "groupBloodNotAllowed": [
-              null,
-              true,
-              false,
-              false,
-              false
-            ]
+            {
+              "categories": [
+                "мучные"
+              ],
+              "weight": 100,
+              "title": {
+                  "ru": "Смесь мучная без глютена Гарнец Шоколадный торт",
+                  "ua": "Суміш борошняна без глютену Гарнець Шоколадний торт"
+              },
+              "calories": 350
             }
           ]
         
