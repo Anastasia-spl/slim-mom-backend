@@ -2,12 +2,12 @@ const Joi = require("joi");
 
 const pwdcheck =
   /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
-const pwdcheckError = "6 characters with upper and lower case";
+const pwdcheckError = "Password should contain 6 characters with upper and lower case";
 
 const checkValidation = (schema, req, res, next) => {
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    return res.status(400).json({ status: validationResult.error.message });
+    return res.status(400).json({ message: validationResult.error.message });
   }
   next();
 };
