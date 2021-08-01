@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const pwdcheck =
   /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|(?=.*[A-Z])(?=.*[0-9]))(?=.{6,})/;
-const pwdcheckError = "Password should contain 6 characters with numbers and letters";
+const pwdcheckError = "Password should contain 6 characters with numbers and latin letters";
 
 const checkValidation = (schema, req, res, next) => {
   const validationResult = schema.validate(req.body);
