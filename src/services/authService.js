@@ -1,9 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 // const nodemailer = require("nodemailer");
-const sha256 = require("sha256");
+// const sha256 = require("sha256");
 
-// const { sendEmail } = require("./emailService");
+const { sendEmail } = require("./emailService");
 const { User } = require("../db/userModel");
 // const { Verification } = require("../db/verificationModel");
 const {
@@ -12,12 +12,12 @@ const {
 } = require("../helpers/errors");
 
 const logIn = async ({ login, email, password }) => {
-  const user = await User.findOne({login});
+  const user = await User.findOne({ login });
 
   // if (user.confirmed === false) {
   //   throw new NotAuthorizedError("Please, check your email for further steps");
   // }
-  if (!user || (!await bcrypt.compare(password, user.password))) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new NotAuthorizedError(`Wrong password or login`);
   }
   // if (!(await bcrypt.compare(password, user.password))) {
@@ -71,7 +71,7 @@ const registration = async ({
   // });
   // await verification.save();
 
-  // await sendEmail(code, email);
+  await sendEmail(login, email);
 
   // return user;
   return logIn({ login, email, password });
