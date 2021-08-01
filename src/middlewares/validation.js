@@ -7,7 +7,7 @@ const pwdcheckError = "Password should contain 6 characters with numbers and lat
 const checkValidation = (schema, req, res, next) => {
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    return res.status(400).json({ message: 'Password should contain 6 characters with numbers and letters' });
+    return res.status(400).json({ message: 'Password should contain 6 characters with numbers and latin letters' });
   }
   next();
 };
