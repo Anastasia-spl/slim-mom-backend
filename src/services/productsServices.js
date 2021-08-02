@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// mongoose.set('useCreateIndex', true);
 const ObjectID = mongoose.Types.ObjectId;
 const { Products } = require("../db/productsModel");
 const { EatenProducts } = require("../db/eatenProductsModel");
@@ -7,28 +8,7 @@ const { User } = require("../db/userModel");
 const { QueryError, ClientError } = require("../helpers/errors");
 
 const searchProducts = async ({ query, page, limit }) => { 
-  const allProductsList = await Products.find({}).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
-
-  let queriedProducts;
-  if (query.includes(" ")) {
-    queriedProducts = allProductsList.filter((product) => {
-      const templatedQuery = query.trim().toLowerCase().split(" ");
-      const templatedTitle = product.title.ru.toLowerCase().split(" ");
-      let coincidences = true;
-      for (const queryWord of templatedQuery) {
-        if (!templatedTitle.includes(queryWord)) {
-          coincidences = false;
-        }
-      }
-      return coincidences;
-    });
-    return queriedProducts;
-  }
-  queriedProducts = allProductsList.filter((product) => {
-    const templatedQuery = query.trim().toLowerCase();
-    const templatedTitle = product.title.ru.toLowerCase();
-    return templatedTitle.includes(templatedQuery)
-  });
+  const queriedProducts = await Products.find({ "title.ru": { "$regex": `(.*)${query}(.+)?`, "$options": "i" } });
 
   if (queriedProducts.length === 0) {
     throw new QueryError("No product found. Try another title.");
