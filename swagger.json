@@ -97,7 +97,7 @@
             "description": "User's blood group"
           }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -406,7 +406,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/userInfoResponse"
+                  "$ref": "#/components/schemas/UserInfoResponse"
                 }
               }
             }
@@ -585,7 +585,7 @@
          }
         }
       },
-      "userInfoResponse": {
+      "UserInfoResponse": {
         "type": "object",
         "items": {
           "type": "object",
@@ -624,22 +624,25 @@
               "description":"User's desired weight",
               "example" : 57
             }
-          },
-              "example": {
-                "message": "success",
-                "userInfo": {
-                "height": 176,
-                "weight": 60,
-                "age": 26,
-                "desiredWeight": 56,
-                "bloodGroup": 2,
-                "productsNotAllowed": [
-                    "мучные",
-                    "молочные",
-                    "мясо"
-                ]}
-              }
-      },
+          }
+        },
+        "example": {
+          "message": "success",
+          "userInfo": {
+          "height": 176,
+          "weight": 60,
+          "age": 26,
+          "desiredWeight": 56,
+          "bloodGroup": 2,
+          "productsNotAllowed": [
+              "мучные",
+              "молочные",
+              "мясо"
+            ]
+          }
+        }
+      }
+      ,
       "LogoutRequest": {
         "type": "object",
         "required": [
@@ -850,7 +853,7 @@
           }
       }
       }
-    },
+    ,
     "securitySchemes": {
       "Bearer": {
         "type": "http",
@@ -860,4 +863,5 @@
     }
   }
 }
+
 
