@@ -574,42 +574,11 @@
             "type": "string",
             "description": "User's email",
             "example": "mailName@gmail.com"
-          },
-          "height": {
-            "type": "number",
-            "description": "User's height",
-            "example": "180"
-          },
-      
-            "weight": {
-              "type": "number",
-            "description": "User's weight",
-            "example": "60"
-            },
-            "age": {
-              "type": "number",
-            "description": "User's weight",
-            "example": "32"
-            },
-            "desiredWeight": {
-               "type": "number",
-            "description": "User's desired weight",
-            "example": "57"
-            },
-            "bloodGroup": {
-                "type": "number",
-            "description": "User's blood group",
-            "example": "3"
-            }
+          }
         },
         "example" : {
            "message": "success",
           "user": {
-            "height": 180,
-            "weight": 60,
-            "age": 27,
-            "desiredWeight": 58,
-            "bloodGroup": 3,
             "token": "eyJhbGciOiJiuzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTAyOTE0ZWQ5N2ZiOGUxZjQ5YzM4ZTciLCJsb2dpbiI6Im5uc25kMTIzIiwiaWF0IjoxNjI3NTU4Njc4fQ.B3G8sAvJUn8rQ382JXEGbdJhOtAY05K_NGxYVrwtH6w",
             "login": "example",
             "email": "example@gmail.com"
