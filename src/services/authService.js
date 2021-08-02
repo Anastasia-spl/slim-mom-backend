@@ -82,9 +82,15 @@ const checkCurrentUser = async (token) => {
   return user;
 };
 
+const getUserInfo = async (userId) => {
+  const { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed } = await User.findById(userId);
+  return { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed };
+};
+
 module.exports = {
   registration,
   logIn,
   logOut,
-  checkCurrentUser
+  checkCurrentUser,
+  getUserInfo
 };

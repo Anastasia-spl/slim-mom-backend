@@ -22,5 +22,4 @@ router.post("/recommendation", userInfoValidation, asyncWrapper(privateRecommend
 router.post("/",addProductValidation , asyncWrapper(addEatenProductsController));
 router.delete("/:id", asyncWrapper(deleteEatenProductsController));
 router.get("/eaten", asyncWrapper(getEatenProductsController));
-
 module.exports = { productsRouter: router };
