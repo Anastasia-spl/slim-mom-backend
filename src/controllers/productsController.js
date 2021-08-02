@@ -1,4 +1,4 @@
-const date = require('date-and-time');
+const dateValidation = require('date-and-time');
 const {
   searchProducts,
   publicRecommendation,
@@ -57,6 +57,9 @@ const privateRecommendationController = async (req, res) => {
 const addEatenProductsController = async (req, res) => {
   const owner = req.userId;
   const { title, weight, calories, date } = req.body;
+  if (!dateValidation.isValid(date, 'DD.MM.YYYY')) {
+     throw new ClientError("Wrong format, expected: DD.MM.YYYY")
+  }
   const product = await addEatenProducts({
     title,
     weight,
@@ -80,11 +83,11 @@ const getEatenProductsController = async (req, res) => {
   if (!dateToFind) {
     throw new ClientError("Provide the date")
   }
-  if (!date.isValid(dateToFind, 'DD.MM.YYYY')) {
+  if (!dateValidation.isValid(dateToFind, 'DD.MM.YYYY')) {
      throw new ClientError("Wrong format, expected: DD.MM.YYYY")
   }
   const userFoodListByDay = await getEatenProducts({owner, dateToFind});
-  res.json({ message: "success", userFoodListByDay });
+  res.json({ message: "success", userFoodListByDay});
 };
 
 module.exports = {
