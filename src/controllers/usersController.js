@@ -3,6 +3,7 @@ const {
   logIn,
   logOut,
   checkCurrentUser,
+  getUserInfo
 } = require("../services/authService");
 
 const registrationController = async (req, res, next) => {
@@ -48,9 +49,17 @@ const currentUserController = async (req, res) => {
   res.json({ message: "success", user });
 };
 
+const getUserInfoController = async (req, res) => {
+  const { userId } = req;
+  const userInfo = await getUserInfo(userId);
+  res.json({ message: "success", userInfo });
+};
+
+
 module.exports = {
   registrationController,
   logInController,
   logOutController,
   currentUserController,
+  getUserInfoController
 };
