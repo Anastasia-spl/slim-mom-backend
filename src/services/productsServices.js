@@ -115,20 +115,10 @@ const deleteEatenProducts = async ({ eatenProductId, owner }) => {
   )
 };
 
-const getEatenProducts = async ({owner, dateToFind}) => {
-  const user = await EatenProducts.findOne({owner})
-  if (!user) {
-    throw new ClientError("User have no eaten products list")
-  }
-
-  const userFoodListByDate = user.eatenProducts.filter(
-    ({ date }) => date === dateToFind
-  );
-  if (userFoodListByDate.length === 0) {
-    throw new ClientError("At this date user have no eaten products")
-  }
-
-  return userFoodListByDate;
+const getEatenProducts = async ({ owner, dateToFind }) => {
+  const user = await EatenProducts.findOne({ owner })
+  
+  return user ? (user.eatenProducts.filter(({ date }) => date === dateToFind)) : [];
 };
 
 module.exports = {
