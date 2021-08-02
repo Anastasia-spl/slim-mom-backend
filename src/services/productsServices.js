@@ -38,12 +38,12 @@ const privateRecommendation = async (
   userId
 ) => {
   const userInfo = { height, weight, age, desiredWeight, bloodGroup };
+  const productsNotAllowed = await publicRecommendation(bloodGroup);
+
   await User.findByIdAndUpdate(
      userId,
-    { $set:  userInfo }
+    { $set:  {...userInfo}, productsNotAllowed }
   );
-
-  const productsNotAllowed = await publicRecommendation(userInfo);
 
   return { productsNotAllowed };
 };
