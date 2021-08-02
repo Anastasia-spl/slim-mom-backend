@@ -20,7 +20,6 @@ const searchProducts = async ({ query, page, limit }) => {
 };
 
 const publicRecommendation = async (bloodGroup) => {
-
   const allProductsList = await Products.find({});
   const productsNotAllowed = allProductsList.reduce((acc, product) => {
     if (product.groupBloodNotAllowed[Number(bloodGroup)]) {
@@ -43,17 +42,7 @@ const privateRecommendation = async (
     { $set:  { height, weight, age, desiredWeight, bloodGroup  } }
   );
 
-  const allProductsList = await Products.find({});
-
-  const productsNotAllowed = allProductsList.reduce((acc, product) => {
-    if (product.groupBloodNotAllowed[Number(bloodGroup)]) {
-      acc.push(...product.categories);
-    }
-    const uniqueList = acc.filter(
-      (category, index, arr) => arr.indexOf(category) === index
-    );
-    return uniqueList;
-  }, []);
+  const productsNotAllowed = await publicRecommendation;
 
   return { productsNotAllowed };
 };
