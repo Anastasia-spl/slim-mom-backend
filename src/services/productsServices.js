@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// mongoose.set('useCreateIndex', true);
 const ObjectID = mongoose.Types.ObjectId;
 const { Products } = require("../db/productsModel");
 const { EatenProducts } = require("../db/eatenProductsModel");
