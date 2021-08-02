@@ -2,12 +2,17 @@ const mongoose = require("mongoose");
 
 const productsSchema = new mongoose.Schema({
   title: {
-    type: Object,
-    required: [true, "Set title for product"]
+    ru: {
+      type: String,
+      text: true
+    },
+    ua: {
+      type: String,
+      text: true
+    }
   },
   calories: {
     type: Number,
-    required: [true, "Indicate calories per 100 grams"]
   },
   weight: {
     type: Number,
