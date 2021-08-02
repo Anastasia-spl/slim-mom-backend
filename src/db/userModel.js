@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
+  productsNotAllowed: {
+    type: Array,
+    default: null,
+  },
   token: {
     type: String,
     default: null,
