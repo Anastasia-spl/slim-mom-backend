@@ -7,28 +7,44 @@ const { User } = require("../db/userModel");
 const { QueryError, ClientError } = require("../helpers/errors");
 
 const searchProducts = async ({ query, page, limit }) => { 
-  const allProductsList = await Products.find({}).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
+  console.log(query)
 
-  let queriedProducts;
-  if (query.includes(" ")) {
-    queriedProducts = allProductsList.filter((product) => {
-      const templatedQuery = query.trim().toLowerCase().split(" ");
-      const templatedTitle = product.title.ru.toLowerCase().split(" ");
-      let coincidences = true;
-      for (const queryWord of templatedQuery) {
-        if (!templatedTitle.includes(queryWord)) {
-          coincidences = false;
-        }
-      }
-      return coincidences;
-    });
-    return queriedProducts;
-  }
-  queriedProducts = allProductsList.filter((product) => {
-    const templatedQuery = query.trim().toLowerCase();
-    const templatedTitle = product.title.ru.toLowerCase();
-    return templatedTitle.includes(templatedQuery)
-  });
+//  const queriedProducts = await Products.find({'title.ru' : {$eq: `${query}`} }).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
+  // const queriedProducts = await Products.find({ 'title.ru': { $eq: "Яйцо " } }).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
+
+// `/${query}/`
+  const queriedProducts = await Products.$where(function () {
+    return this.title.ru.includes(query)
+  })
+
+  console.log(queriedProducts)
+  // query.$where(function () {
+  // return this.comments.length === 10 || this.name.length === 5;
+  // })
+  
+
+  // const allProductsList = await Products.find({}).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
+
+  // let queriedProducts;
+  // if (query.trim().includes(" ")) {
+  //   const templatedQuery = query.trim().toLowerCase().split(" ");
+  //   queriedProducts = allProductsList.filter((product) => {
+  //     const templatedTitle = product.title.ru.toLowerCase().split(" ");
+  //     let coincidences = true;
+  //     for (const queryWord of templatedQuery) {
+  //       if (!templatedTitle.includes(queryWord)) {
+  //         coincidences = false;
+  //       }
+  //     }
+  //     return coincidences;
+  //   });
+  //   return queriedProducts;
+  // }
+  // queriedProducts = allProductsList.filter((product) => {
+  //   const templatedQuery = query.trim().toLowerCase();
+  //   const templatedTitle = product.title.ru.toLowerCase();
+  //   return templatedTitle.includes(templatedQuery)
+  // });
 
   if (queriedProducts.length === 0) {
     throw new QueryError("No product found. Try another title.");
@@ -115,20 +131,25 @@ const deleteEatenProducts = async ({ eatenProductId, owner }) => {
   )
 };
 
-const getEatenProducts = async ({owner, dateToFind}) => {
-  const user = await EatenProducts.findOne({owner})
-  if (!user) {
-    throw new ClientError("User have no eaten products list")
-  }
+const getEatenProducts = async ({ owner, dateToFind }) => {
+  // let response = "At this date user have no eaten products";
+  // const user = await EatenProducts.findOne({ owner })
+  
+  // if (!user) {
+  //   return {userFoodListByDate: [], message: "User have no eaten products list"};
+  // }
 
-  const userFoodListByDate = user.eatenProducts.filter(
-    ({ date }) => date === dateToFind
-  );
-  if (userFoodListByDate.length === 0) {
-    throw new ClientError("At this date user have no eaten products")
-  }
+  // const userFoodListByDate = user.eatenProducts.filter(
+  //   ({ date }) => date === dateToFind
+  // );
 
-  return userFoodListByDate;
+  // return user ? 
+
+  // if (userFoodListByDate.length === 0) {
+  //   throw new ClientError("At this date user have no eaten products")
+  // }
+
+  // return userFoodListByDate;
 };
 
 module.exports = {
