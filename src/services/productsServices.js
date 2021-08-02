@@ -7,7 +7,9 @@ const { User } = require("../db/userModel");
 const { QueryError, ClientError } = require("../helpers/errors");
 
 const searchProducts = async ({ query, page, limit }) => { 
-  const queriedProducts = await Products.find({ "title.ru": { "$regex": `(.*)${query}(.+)?`, "$options": "i" } }).select({"__v": 0, "_id": 0, "groupBloodNotAllowed": 0});;
+  const queriedProducts = await Products.find({
+    "title.ru": { "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] }
+  }).select({ "__v": 0, "_id": 0, "groupBloodNotAllowed": 0 });
 
   if (queriedProducts.length === 0) {
     throw new QueryError("No product found. Try another title.");
