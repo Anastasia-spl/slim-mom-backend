@@ -359,7 +359,7 @@
       }
     },
     "/users/current": {
-      "post": {
+      "get": {
         "tags": [
           "Users"
         ],
@@ -377,6 +377,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - wrong token",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/info": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Return user's physiological data and list of products not recommended to eat",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userInfoResponse"
                 }
               }
             }
@@ -586,6 +616,61 @@
          }
         }
       },
+      "userInfoResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "productsNotAllowed": {
+              "type": "array",
+              "description": "Product's category",
+              "example": [
+                "мучные",
+                    "молочные",
+                    "мясо"
+              ]
+            },
+            "age": {
+              "type": "number",
+              "description": "User's age",
+              "example" : 33
+            },
+            "height": {
+              "type": "number",
+              "description":"User's height",
+              "example" : 180
+            },
+            "weight": {
+              "type": "number",
+              "description":"User's weight",
+              "example" : 62
+            },
+            "bloodGroup": {
+              "type": "number",
+              "description":"User's blood group",
+              "example" : 3
+            },
+            "desiredWeight": {
+              "type": "number",
+              "description":"User's desired weight",
+              "example" : 57
+            }
+          },
+              "example": {
+                "message": "success",
+                "userInfo": {
+                "height": 176,
+                "weight": 60,
+                "age": 26,
+                "desiredWeight": 56,
+                "bloodGroup": 2,
+                "productsNotAllowed": [
+                    "мучные",
+                    "молочные",
+                    "мясо"
+                ]}
+              }
+      },
       "LogoutRequest": {
         "type": "object",
         "required": [
@@ -666,7 +751,6 @@
               "calories": 350
             }
           ]
-        
       },
       "RecommendationResponse": {
         "type": "object",
@@ -796,6 +880,7 @@
             "message": "Product has been successfully deleted"
           }
       }
+      }
     },
     "securitySchemes": {
       "Bearer": {
@@ -806,3 +891,4 @@
     }
   }
 }
+
