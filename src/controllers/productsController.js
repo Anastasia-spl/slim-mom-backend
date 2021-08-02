@@ -18,8 +18,12 @@ const searchProductsController = async (req, res) => {
   if (!query) {
     throw new QueryError('Provide a query string')
   }
-  const productsList = await searchProducts({query, page, limit});
-  res.json({ message: "success", productsList });
+  const {
+    paginatedResponse: productsList,
+    AmountOfQueriedProducts: totalProducts,
+    AmountOfPages: totalPages
+  } = await searchProducts({ query, page, limit });
+  res.json({ message: "success", productsList , totalProducts , totalPages});
 };
 
 const publicRecommendationController = async (req, res) => {

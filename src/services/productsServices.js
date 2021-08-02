@@ -8,7 +8,7 @@ const { QueryError, ClientError } = require("../helpers/errors");
 
 const searchProducts = async ({ query, page, limit }) => { 
   const allProductsList = await Products.find({}).select({ __v: 0, groupBloodNotAllowed: 0, _id: 0 });
-  
+
   let queriedProducts;
   if (query.includes(" ")) {
     queriedProducts = allProductsList.filter((product) => {
@@ -33,10 +33,11 @@ const searchProducts = async ({ query, page, limit }) => {
   if (queriedProducts.length === 0) {
     throw new QueryError("No product found. Try another title.");
   }
-
+  const AmountOfQueriedProducts = queriedProducts.length;
+  const AmountOfPages = AmountOfQueriedProducts < limit ? 1 : Math.ceil(AmountOfQueriedProducts / limit);
   const paginateFrom = (page * limit - limit);
   const paginatedResponse = [...queriedProducts].splice(paginateFrom, limit)
-  return paginatedResponse;
+  return { paginatedResponse, AmountOfQueriedProducts, AmountOfPages };
 };
 
 const publicRecommendation = async (bloodGroup) => {
