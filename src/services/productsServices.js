@@ -20,7 +20,6 @@ const searchProducts = async ({ query, page, limit }) => {
 };
 
 const publicRecommendation = async (bloodGroup) => {
-
   const allProductsList = await Products.find({});
   const productsNotAllowed = allProductsList.reduce((acc, product) => {
     if (product.groupBloodNotAllowed[Number(bloodGroup)]) {
