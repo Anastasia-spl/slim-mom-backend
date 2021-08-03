@@ -6,10 +6,12 @@ const {
   addEatenProducts,
   deleteEatenProducts,
   getEatenProducts,
+  addNewProducts
 } = require("../services/productsServices");
 const { QueryError, ClientError } = require('../helpers/errors')
 
 const searchProductsController = async (req, res) => {
+  const owner = req.userId;
   const {
     query,
     page = 1,
@@ -22,7 +24,7 @@ const searchProductsController = async (req, res) => {
     paginatedResponse: productsList,
     AmountOfQueriedProducts: totalProducts,
     AmountOfPages: totalPages
-  } = await searchProducts({ query, page, limit });
+  } = await searchProducts({ query, page, limit, owner });
   res.json({ message: "success", productsList , totalProducts , totalPages});
 };
 
@@ -90,6 +92,17 @@ const getEatenProductsController = async (req, res) => {
   res.json({ message: "success", userFoodListByDay});
 };
 
+const addNewProductsController = async (req, res) => {
+  const owner = req.userId;
+  const { title, calories } = req.body;
+  const product = await addNewProducts({
+    title,
+    calories,
+    owner
+  });
+  res.json({ message: "Product successfully saved", product });
+};
+
 module.exports = {
   searchProductsController,
   publicRecommendationController,
@@ -97,4 +110,5 @@ module.exports = {
   addEatenProductsController,
   deleteEatenProductsController,
   getEatenProductsController,
+  addNewProductsController
 };

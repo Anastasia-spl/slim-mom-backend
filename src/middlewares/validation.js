@@ -7,7 +7,12 @@ const pwdcheckError = "Password should contain 6 characters with numbers and lat
 const checkValidation = (schema, req, res, next) => {
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    return res.status(400).json({ message: 'Password should contain 6 characters with numbers and latin letters' });
+
+    return res.status(400).json({
+      message: validationResult.error.message.includes('password') ?
+        "Password should contain 6 characters with numbers and latin letters" :
+    validationResult.error.message
+    });
   }
   next();
 };
@@ -76,10 +81,19 @@ const addProductValidation = (req, res, next) => {
   checkValidation(schema, req, res, next);
 };
 
+const addNewProductValidation = (req, res, next) => {
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    calories: Joi.number().required(),
+  });
+  checkValidation(schema, req, res, next);
+};
+
 module.exports = {
   userRegistrationValidation,
   userInfoValidation,
   userLoginValidation,
   addProductValidation,
-  addUserInfoValidation
+  addUserInfoValidation,
+  addNewProductValidation
 };

@@ -242,6 +242,50 @@
         }
       }
     },
+    "products/personal/add": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Add new product to personal user's products list (in case if initial list didn't satisfied request)",
+        "parameters": [],
+        "requestBody": {
+          "description": "Product's information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNewProductsRequest"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product successfully saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNewProductsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/users/registration": {
       "post": {
         "tags": [
@@ -910,6 +954,49 @@
               "weight": "100",
               "calories": "320",
               "date": "01.06.21"
+          }
+        }
+      },
+      "AddNewProductsRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "calories"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Product's title",
+            "example": "Coconut urbech"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Product's calories per 100 grams",
+            "example": "450"
+          }
+        }
+      },
+      "AddNewProductsResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Result of operation"
+            },
+            "product": {
+              "type": "object",
+              "description": "Description of saved product"
+            }
+          }
+        },
+        "example": {
+          "message": "Product successfully saved",
+          "product" : {
+              "_id": "610194d7cdcd37c2ca8d3225",
+              "title": "pizza",
+              "calories": "320"
           }
         }
       },

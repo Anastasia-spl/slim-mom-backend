@@ -115,5 +115,6 @@ module.exports = {
   logOut,
   checkCurrentUser,
   getUserInfo,
-  addUserInfo
+  addUserInfo,
+  
 };
