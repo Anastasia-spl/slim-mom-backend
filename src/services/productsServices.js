@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const ObjectID = mongoose.Types.ObjectId;
 const { Products } = require("../db/productsModel");
 const { EatenProducts } = require("../db/eatenProductsModel");
+const { PersonalProducts } = require("../db/personalProductsModel");
 const { User } = require("../db/userModel");
 
 const { QueryError, ClientError } = require("../helpers/errors");
@@ -90,7 +91,23 @@ const getEatenProducts = async ({ owner, dateToFind }) => {
   return user ? (user.eatenProducts.filter(({ date }) => date === dateToFind)) : [];
 };
 
-addNewProducts
+const addNewProducts = async ({ title, calories, owner }) => {
+  const user = await PersonalProducts.findOne({ owner });
+  const _id = new ObjectID();
+  if (!user) {
+    const personalProductList = new PersonalProducts({
+      owner,
+      productsList: [{ _id, title, calories }],
+    });
+    await personalProductList.save();
+    return {_id, title, calories };
+  }
+  await EatenProducts.findOneAndUpdate(
+    { owner },
+    { $push: { productsList: { _id, title, calories } } }
+  );
+  return {_id, title, calories };
+};
 
 module.exports = {
   searchProducts,
