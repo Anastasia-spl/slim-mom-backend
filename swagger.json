@@ -505,7 +505,12 @@
             "type": "number",
             "description": "User's bloodGroup",
             "example": 3
-          }
+          },
+          "productsNotAllowed": [
+            "мучные",
+            "молочные",
+            "мясо"
+          ]
         }
       },
       "RegistrationResponse": {
