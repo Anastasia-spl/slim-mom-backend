@@ -6,6 +6,7 @@ const {
   addEatenProducts,
   deleteEatenProducts,
   getEatenProducts,
+  addNewProducts
 } = require("../services/productsServices");
 const { QueryError, ClientError } = require('../helpers/errors')
 
@@ -90,6 +91,24 @@ const getEatenProductsController = async (req, res) => {
   res.json({ message: "success", userFoodListByDay});
 };
 
+const addNewProductsController = async (req, res) => {
+  const owner = req.userId;
+  const { title, calories } = req.body;
+  const product = await addNewProducts({
+    title,
+    calories,
+    owner
+  });
+  res.json({ message: "Product successfully saved", product });
+};
+
+// const getNewProductsController = async (req, res) => {
+//   const owner  = req.userId;
+//   const { date: dateToFind } = req.query; 
+//   const userFoodListByDay = await getEatenProducts({owner, dateToFind});
+//   res.json({ message: "success", userFoodListByDay});
+// };
+
 module.exports = {
   searchProductsController,
   publicRecommendationController,
@@ -97,4 +116,6 @@ module.exports = {
   addEatenProductsController,
   deleteEatenProductsController,
   getEatenProductsController,
+  addNewProductsController,
+  // getNewProductsController
 };

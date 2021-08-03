@@ -90,6 +90,8 @@ const getEatenProducts = async ({ owner, dateToFind }) => {
   return user ? (user.eatenProducts.filter(({ date }) => date === dateToFind)) : [];
 };
 
+addNewProducts
+
 module.exports = {
   searchProducts,
   publicRecommendation,
@@ -97,4 +99,5 @@ module.exports = {
   addEatenProducts,
   deleteEatenProducts,
   getEatenProducts,
+  addNewProducts
 };
