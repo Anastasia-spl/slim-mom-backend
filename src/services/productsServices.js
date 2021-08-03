@@ -12,7 +12,7 @@ const searchProducts = async ({ query, page, limit, owner }) => {
 
   // if (userList) {
   //     const personalProducts = await PersonalProducts.find({
-  //       "productsList.title":  "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] 
+  //       "productsList.title":  { "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] } 
   //     });
   //   // const personalProducts = await PersonalProducts.find({
   //   //   'productsList': { $elemMatch: { 'title': { "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] } } }
@@ -114,7 +114,7 @@ const addNewProducts = async ({ title, calories, owner }) => {
     await personalProductList.save();
     return {_id, title, calories };
   }
-  await EatenProducts.findOneAndUpdate(
+  await PersonalProducts.findOneAndUpdate(
     { owner },
     { $push: { productsList: { _id, title, calories } } }
   );
