@@ -13,7 +13,6 @@ const {
   deleteEatenProductsController,
   getEatenProductsController,
   addNewProductsController,
-  // getNewProductsController
 } = require("../controllers/productsController");
 
 router.get("/recommendation", asyncWrapper(publicRecommendationController));
@@ -25,6 +24,5 @@ router.post("/",addProductValidation , asyncWrapper(addEatenProductsController))
 router.delete("/:id", asyncWrapper(deleteEatenProductsController));
 router.get("/eaten", asyncWrapper(getEatenProductsController));
 router.post("/personal/add", addNewProductValidation, asyncWrapper(addNewProductsController));
-// router.get("/personal", addNewProductValidation, asyncWrapper(getNewProductsController))
 
 module.exports = { productsRouter: router };

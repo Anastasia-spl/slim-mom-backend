@@ -103,13 +103,6 @@ const addNewProductsController = async (req, res) => {
   res.json({ message: "Product successfully saved", product });
 };
 
-// const getNewProductsController = async (req, res) => {
-//   const owner  = req.userId;
-//   const { date: dateToFind } = req.query; 
-//   const userFoodListByDay = await getEatenProducts({owner, dateToFind});
-//   res.json({ message: "success", userFoodListByDay});
-// };
-
 module.exports = {
   searchProductsController,
   publicRecommendationController,
@@ -117,6 +110,5 @@ module.exports = {
   addEatenProductsController,
   deleteEatenProductsController,
   getEatenProductsController,
-  addNewProductsController,
-  // getNewProductsController
+  addNewProductsController
 };
