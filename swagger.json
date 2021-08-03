@@ -545,11 +545,14 @@
             "description": "User's bloodGroup",
             "example": 3
           },
-          "productsNotAllowed": [
+          "productsNotAllowed": {
+            "type": "array",
+            "description": "Array of products not recommended to eat",
+            "example": [
             "мучные",
             "молочные",
             "мясо"
-          ]
+          ]}
         }
       },
       "RegistrationResponse": {
