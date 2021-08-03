@@ -3,7 +3,8 @@ const {
   logIn,
   logOut,
   checkCurrentUser,
-  getUserInfo
+  getUserInfo,
+  addUserInfo
 } = require("../services/authService");
 
 const registrationController = async (req, res, next) => {
@@ -55,11 +56,33 @@ const getUserInfoController = async (req, res) => {
   res.json({ message: "success", userInfo });
 };
 
+const addUserInfoController = async (req, res) => {
+  const { userId } = req;
+  const {
+    height,
+    weight,
+    desiredWeight,
+    bloodGroup,
+    age,
+    productsNotAllowed
+  } = req.body;
+  await addUserInfo({
+    userId,
+    height,
+    weight,
+    desiredWeight,
+    bloodGroup,
+    age,
+    productsNotAllowed
+  });
+  res.json({ message: "User's physiological data successfully added" });
+};
 
 module.exports = {
   registrationController,
   logInController,
   logOutController,
   currentUserController,
-  getUserInfoController
+  getUserInfoController,
+  addUserInfoController
 };

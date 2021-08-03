@@ -87,10 +87,33 @@ const getUserInfo = async (userId) => {
   return { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed };
 };
 
+const addUserInfo = async ({
+    userId,
+    height,
+    weight,
+    desiredWeight,
+    bloodGroup,
+    age,
+    productsNotAllowed
+}) => {
+  await User.findOneAndUpdate({ _id: userId },
+    {
+      $set: {
+        height,
+        weight,
+        desiredWeight,
+        bloodGroup,
+        age,
+        productsNotAllowed
+      }
+    });
+};
+
 module.exports = {
   registration,
   logIn,
   logOut,
   checkCurrentUser,
-  getUserInfo
+  getUserInfo,
+  addUserInfo
 };

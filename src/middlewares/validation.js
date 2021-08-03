@@ -44,6 +44,18 @@ const userInfoValidation = (req, res, next) => {
   checkValidation(schema, req, res, next);
 };
 
+const addUserInfoValidation = (req, res, next) => {
+  const schema = Joi.object({
+    height: Joi.string().min(2).max(3).required(),
+    weight: Joi.string().min(2).max(3).required(),
+    age: Joi.string().min(2).max(3).required(),
+    desiredWeight: Joi.string().min(2).max(3).required(),
+    bloodGroup: Joi.string().min(1).max(1).required(),
+    productsNotAllowed: Joi.string().array().required(),
+  });
+  checkValidation(schema, req, res, next);
+};
+
 const userLoginValidation = (req, res, next) => {
   const schema = Joi.object({
     login: Joi.string().min(4).max(14).required(),
@@ -69,4 +81,5 @@ module.exports = {
   userInfoValidation,
   userLoginValidation,
   addProductValidation,
+  addUserInfoValidation
 };
