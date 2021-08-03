@@ -11,6 +11,7 @@ const {
 const { QueryError, ClientError } = require('../helpers/errors')
 
 const searchProductsController = async (req, res) => {
+  const owner = req.userId;
   const {
     query,
     page = 1,
@@ -23,7 +24,7 @@ const searchProductsController = async (req, res) => {
     paginatedResponse: productsList,
     AmountOfQueriedProducts: totalProducts,
     AmountOfPages: totalPages
-  } = await searchProducts({ query, page, limit });
+  } = await searchProducts({ query, page, limit, owner });
   res.json({ message: "success", productsList , totalProducts , totalPages});
 };
 

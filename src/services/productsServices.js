@@ -7,7 +7,19 @@ const { User } = require("../db/userModel");
 
 const { QueryError, ClientError } = require("../helpers/errors");
 
-const searchProducts = async ({ query, page, limit }) => { 
+const searchProducts = async ({ query, page, limit, owner }) => { 
+  // const userList = await PersonalProducts.findOne({ owner });
+
+  // if (userList) {
+  //     const personalProducts = await PersonalProducts.find({
+  //       "productsList.title":  "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] 
+  //     });
+  //   // const personalProducts = await PersonalProducts.find({
+  //   //   'productsList': { $elemMatch: { 'title': { "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] } } }
+  //   // })
+  //   console.log('22222222222', personalProducts)
+  // }
+
   const queriedProducts = await Products.find({
     "title.ru": { "$regex": `(.*)${query}(.*)?`, "$options": ["i", "x"] }
   }).select({ "__v": 0, "_id": 0, "groupBloodNotAllowed": 0 });
