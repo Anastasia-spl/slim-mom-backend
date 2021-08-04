@@ -45,6 +45,7 @@ const userInfoValidation = (req, res, next) => {
     age: Joi.string().min(2).max(3).required(),
     desiredWeight: Joi.string().min(2).max(3).required(),
     bloodGroup: Joi.string().min(1).max(1).required(),
+    productsNotAllowed: Joi.array(),
   });
   checkValidation(schema, req, res, next);
 };
