@@ -34,6 +34,7 @@ const userRegistrationValidation = (req, res, next) => {
     age: Joi.string().min(2).max(3),
     desiredWeight: Joi.string().min(2).max(3),
     bloodGroup: Joi.string().min(1).max(1),
+    productsNotAllowed: Joi.array(),
   });
   checkValidation(schema, req, res, next);
 };
