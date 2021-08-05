@@ -29,12 +29,12 @@ const userRegistrationValidation = (req, res, next) => {
     password: Joi.string()
       .pattern(new RegExp(pwdcheck), pwdcheckError)
       .required(),
-    height: Joi.string().allow(null),
-    weight: Joi.string().allow(null),
-    age: Joi.string().allow(null),
-    desiredWeight: Joi.allow(null),
-    bloodGroup: Joi.string().allow(null),
-    productsNotAllowed: Joi.array().allow(null),
+    height: Joi.any(),
+    weight: Joi.any(),
+    age: Joi.any(),
+    desiredWeight: Joi.any(),
+    bloodGroup: Joi.any(),
+    productsNotAllowed: Joi.any(),
   });
   checkValidation(schema, req, res, next);
 };
