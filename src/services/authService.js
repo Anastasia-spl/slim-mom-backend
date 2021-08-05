@@ -36,11 +36,12 @@ const registration = async ({
   bloodGroup,
   age,
 }) => {
-  const existUser = await User.find( {email, login} );
-  // const existEmail = await User.findOne({ email });
-  // const existLogin = await User.findOne({ login });
+  // const existUser = await User.find( {email, login} );
+  const existEmail = await User.findOne({ email });
+  const existLogin = await User.findOne({ login });
   // if (existEmail || existLogin) {
-  if (existUser) {
+
+  if (existEmail || existLogin) {
     throw new RegistrationConflictError("Email or login is already used");
   }
   const user = new User({
