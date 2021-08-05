@@ -4,7 +4,7 @@ const {
   logOut,
   checkCurrentUser,
   getUserInfo,
-  addUserInfo
+  addUserInfo,
 } = require("../services/authService");
 
 const registrationController = async (req, res, next) => {
@@ -41,7 +41,7 @@ const logOutController = async (req, res) => {
   const { userId } = req;
   await logOut(userId);
 
-  res.status(204).json({ message: `No Content - logout success by ${userId}` });
+  res.status(204).json();
 };
 
 const currentUserController = async (req, res) => {
@@ -58,14 +58,8 @@ const getUserInfoController = async (req, res) => {
 
 const addUserInfoController = async (req, res) => {
   const { userId } = req;
-  const {
-    height,
-    weight,
-    desiredWeight,
-    bloodGroup,
-    age,
-    productsNotAllowed
-  } = req.body;
+  const { height, weight, desiredWeight, bloodGroup, age, productsNotAllowed } =
+    req.body;
   await addUserInfo({
     userId,
     height,
@@ -73,7 +67,7 @@ const addUserInfoController = async (req, res) => {
     desiredWeight,
     bloodGroup,
     age,
-    productsNotAllowed
+    productsNotAllowed,
   });
   res.json({ message: "User's physiological data successfully added" });
 };
@@ -84,5 +78,5 @@ module.exports = {
   logOutController,
   currentUserController,
   getUserInfoController,
-  addUserInfoController
+  addUserInfoController,
 };
