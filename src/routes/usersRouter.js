@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   userRegistrationValidation,
   userLoginValidation,
-  addUserInfoValidation
+  addUserInfoValidation,
 } = require("../middlewares/validation");
 const { asyncWrapper } = require("../helpers/apiHelpers");
 const { authMiddleware } = require("../middlewares/authMiddleware");
@@ -15,8 +15,9 @@ const {
   logOutController,
   currentUserController,
   getUserInfoController,
-  addUserInfoController
+  addUserInfoController,
 } = require("../controllers/usersController");
+const googleAuth = require("../controllers/googleAuthController");
 
 router.post(
   "/registration",
@@ -28,6 +29,11 @@ router.use(authMiddleware);
 router.post("/logout", asyncWrapper(logOutController));
 router.get("/current", asyncWrapper(currentUserController));
 router.get("/info", asyncWrapper(getUserInfoController));
-router.post("/info", addUserInfoValidation, asyncWrapper(addUserInfoController))
+router.post(
+  "/info",
+  addUserInfoValidation,
+  asyncWrapper(addUserInfoController)
+);
+router.post("/authgoogle", googleAuth);
 
 module.exports = router;
