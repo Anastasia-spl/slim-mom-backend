@@ -36,9 +36,11 @@ const registration = async ({
   bloodGroup,
   age,
 }) => {
-  const existEmail = await User.findOne({ email });
-  const existLogin = await User.findOne({ login });
-  if (existEmail || existLogin) {
+  const existUser = await User.findOne({ email, login });
+  // const existEmail = await User.findOne({ email });
+  // const existLogin = await User.findOne({ login });
+  // if (existEmail || existLogin) {
+  if (existUser) {
     throw new RegistrationConflictError("Email or login is already used");
   }
   const user = new User({
@@ -83,20 +85,22 @@ const checkCurrentUser = async (token) => {
 };
 
 const getUserInfo = async (userId) => {
-  const { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed } = await User.findById(userId);
+  const { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed } =
+    await User.findById(userId);
   return { height, weight, age, desiredWeight, bloodGroup, productsNotAllowed };
 };
 
 const addUserInfo = async ({
-    userId,
-    height,
-    weight,
-    desiredWeight,
-    bloodGroup,
-    age,
-    productsNotAllowed
+  userId,
+  height,
+  weight,
+  desiredWeight,
+  bloodGroup,
+  age,
+  productsNotAllowed,
 }) => {
-  await User.findOneAndUpdate({ _id: userId },
+  await User.findOneAndUpdate(
+    { _id: userId },
     {
       $set: {
         height,
@@ -104,9 +108,10 @@ const addUserInfo = async ({
         desiredWeight,
         bloodGroup,
         age,
-        productsNotAllowed
-      }
-    });
+        productsNotAllowed,
+      },
+    }
+  );
 };
 
 module.exports = {
@@ -116,5 +121,4 @@ module.exports = {
   checkCurrentUser,
   getUserInfo,
   addUserInfo,
-  
 };
