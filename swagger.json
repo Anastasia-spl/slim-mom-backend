@@ -83,19 +83,21 @@
         }
       }
     },
-   "/products/recommendation": {
+    "/products/recommendation": {
       "get": {
         "tags": [
           "Products"
         ],
         "summary": "Returns a list of not recommended product categories",
-        "parameters": [{
+        "parameters": [
+          {
             "in": "query",
             "name": "bloodGroup",
             "required": true,
             "type": "number",
             "description": "User's blood group"
-          }],
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -206,19 +208,21 @@
         }
       }
     },
-    "/products/eaten" : {
+    "/products/eaten": {
       "get": {
         "tags": [
           "Products"
         ],
         "summary": "Get the eaten product on a specific day",
-        "parameters": [{
+        "parameters": [
+          {
             "in": "query",
             "name": "date",
             "required": true,
             "type": "string",
             "description": "Date of the day to search eaten product list, format: DD.MM.YYYY"
-          }],
+          }
+        ],
         "security": [
           {
             "Bearer": []
@@ -378,7 +382,18 @@
           "Users"
         ],
         "summary": "User's logout",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "User's token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - Bearer vvksd345345dvnslkv53285"
+            }
+          }
+        ],
         "security": [
           {
             "Bearer": []
@@ -386,7 +401,10 @@
         ],
         "responses": {
           "204": {
-            "description": "No content - successful logout",
+            "description": "No content - successful logout"
+          },
+          "401": {
+            "description": "Unauthorized - wrong token",
             "content": {
               "application/json": {
                 "schema": {
@@ -394,10 +412,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized - wrong token",
-            "content": {}
           }
         }
       }
@@ -564,22 +578,22 @@
             "description": "User's password",
             "example": "qwerty123"
           },
-          "height" : {
+          "height": {
             "type": "number",
             "description": "User's height",
             "example": 178
           },
-          "weight" : {
+          "weight": {
             "type": "number",
             "description": "User's weight",
             "example": 63
           },
-          "desiredWeight" : {
+          "desiredWeight": {
             "type": "number",
             "description": "User's desired weight",
             "example": 60
           },
-          "age" : {
+          "age": {
             "type": "number",
             "description": "User's age",
             "example": 34
@@ -593,10 +607,11 @@
             "type": "array",
             "description": "Array of products not recommended to eat",
             "example": [
-            "мучные",
-            "молочные",
-            "мясо"
-          ]}
+              "мучные",
+              "молочные",
+              "мясо"
+            ]
+          }
         }
       },
       "RegistrationResponse": {
@@ -667,13 +682,13 @@
             "example": "mailName@gmail.com"
           }
         },
-        "example" : {
-           "message": "success",
+        "example": {
+          "message": "success",
           "user": {
             "token": "eyJhbGciOiJiuzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTAyOTE0ZWQ5N2ZiOGUxZjQ5YzM4ZTciLCJsb2dpbiI6Im5uc25kMTIzIiwiaWF0IjoxNjI3NTU4Njc4fQ.B3G8sAvJUn8rQ382JXEGbdJhOtAY05K_NGxYVrwtH6w",
             "login": "example",
             "email": "example@gmail.com"
-         }
+          }
         }
       },
       "UserInfoResponse": {
@@ -686,46 +701,46 @@
               "description": "Product's category",
               "example": [
                 "мучные",
-                    "молочные",
-                    "мясо"
+                "молочные",
+                "мясо"
               ]
             },
             "age": {
               "type": "number",
               "description": "User's age",
-              "example" : 33
+              "example": 33
             },
             "height": {
               "type": "number",
-              "description":"User's height",
-              "example" : 180
+              "description": "User's height",
+              "example": 180
             },
             "weight": {
               "type": "number",
-              "description":"User's weight",
-              "example" : 62
+              "description": "User's weight",
+              "example": 62
             },
             "bloodGroup": {
               "type": "number",
-              "description":"User's blood group",
-              "example" : 3
+              "description": "User's blood group",
+              "example": 3
             },
             "desiredWeight": {
               "type": "number",
-              "description":"User's desired weight",
-              "example" : 57
+              "description": "User's desired weight",
+              "example": 57
             }
           }
         },
         "example": {
           "message": "success",
           "userInfo": {
-          "height": 176,
-          "weight": 60,
-          "age": 26,
-          "desiredWeight": 56,
-          "bloodGroup": 2,
-          "productsNotAllowed": [
+            "height": 176,
+            "weight": 60,
+            "age": 26,
+            "desiredWeight": 56,
+            "bloodGroup": 2,
+            "productsNotAllowed": [
               "мучные",
               "молочные",
               "мясо"
@@ -744,22 +759,22 @@
           "productsNotAllowed"
         ],
         "properties": {
-          "height" : {
+          "height": {
             "type": "number",
             "description": "User's height",
             "example": 178
           },
-          "weight" : {
+          "weight": {
             "type": "number",
             "description": "User's weight",
             "example": 63
           },
-          "desiredWeight" : {
+          "desiredWeight": {
             "type": "number",
             "description": "User's desired weight",
             "example": 60
           },
-          "age" : {
+          "age": {
             "type": "number",
             "description": "User's age",
             "example": 34
@@ -776,7 +791,7 @@
           ]
         }
       },
-      "AddUserInfoResponse" : {
+      "AddUserInfoResponse": {
         "type": "object",
         "items": {
           "type": "object",
@@ -789,31 +804,17 @@
               }
             }
           },
-        "example": {
-          "message": "User's physiological data successfully added"
-        }
-      }
-    },
-      "LogoutRequest": {
-        "type": "object",
-        "required": [
-          "token"
-        ],
-        "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "fnfninboibi4376548327y6h5g2ivu5h245y"
+          "example": {
+            "message": "User's physiological data successfully added"
           }
         }
       },
       "LogoutResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": null,
-            "description": "User's token",
-            "example": "  "
+            "example": "Not authorized - wrong token"
           }
         }
       },
@@ -849,31 +850,30 @@
             }
           }
         },
-        "example": 
-          [
-            {
-              "categories": [
-                "яйца"
-              ],
-              "weight": 100,
-              "title": {
-                "ru": "Яйцо куриное (желток сухой)",
-                "ua": "Яйце куряче (жовток сухий)"
-              },
-              "calories": 623
+        "example": [
+          {
+            "categories": [
+              "яйца"
+            ],
+            "weight": 100,
+            "title": {
+              "ru": "Яйцо куриное (желток сухой)",
+              "ua": "Яйце куряче (жовток сухий)"
             },
-            {
-              "categories": [
-                "мучные"
-              ],
-              "weight": 100,
-              "title": {
-                  "ru": "Смесь мучная без глютена Гарнец Шоколадный торт",
-                  "ua": "Суміш борошняна без глютену Гарнець Шоколадний торт"
-              },
-              "calories": 350
-            }
-          ]
+            "calories": 623
+          },
+          {
+            "categories": [
+              "мучные"
+            ],
+            "weight": 100,
+            "title": {
+              "ru": "Смесь мучная без глютена Гарнец Шоколадный торт",
+              "ua": "Суміш борошняна без глютену Гарнець Шоколадний торт"
+            },
+            "calories": 350
+          }
+        ]
       },
       "RecommendationResponse": {
         "type": "object",
@@ -948,12 +948,12 @@
         },
         "example": {
           "message": "Product successfully saved",
-          "product" : {
-              "_id": "610194d7cdcd37c2ca8d3225",
-              "title": "pizza",
-              "weight": "100",
-              "calories": "320",
-              "date": "01.06.21"
+          "product": {
+            "_id": "610194d7cdcd37c2ca8d3225",
+            "title": "pizza",
+            "weight": "100",
+            "calories": "320",
+            "date": "01.06.21"
           }
         }
       },
@@ -993,10 +993,10 @@
         },
         "example": {
           "message": "Product successfully saved",
-          "product" : {
-              "_id": "610194d7cdcd37c2ca8d3225",
-              "title": "pizza",
-              "calories": "320"
+          "product": {
+            "_id": "610194d7cdcd37c2ca8d3225",
+            "title": "pizza",
+            "calories": "320"
           }
         }
       },
@@ -1042,12 +1042,11 @@
             }
           }
         },
-         "example": {
-            "message": "Product has been successfully deleted"
-          }
+        "example": {
+          "message": "Product has been successfully deleted"
+        }
       }
-      }
-    ,
+    },
     "securitySchemes": {
       "Bearer": {
         "type": "http",
@@ -1057,5 +1056,3 @@
     }
   }
 }
-
-
