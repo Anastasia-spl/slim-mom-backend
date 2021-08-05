@@ -13,7 +13,7 @@ const googleAuth = (req, res) => {
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
-      const login = name;
+      // const login = name;
       if (email_verified) {
         User.findOne({ email }).exec((err, user) => {
           if (err) {
@@ -30,18 +30,18 @@ const googleAuth = (req, res) => {
                   expiresIn: "30d",
                 }
               );
-              const { _id, login, email } = user;
+              const { _id, login: name, email } = user;
 
               console.log("user google: ", user);
 
               res.json({
                 token,
-                user: { _id, login, email },
+                user: { _id, name, email },
               });
             } else {
               const password = process.env.JWT_SECRET_KEY;
               // let password = email + process.env.GOOGLE_CLIENT_SECRET;
-              const newUser = new User({ name, email, password });
+              const newUser = new User({ login: name, email, password });
               newUser.save((err, data) => {
                 if (err) {
                   return res.status(400).json({
@@ -56,10 +56,10 @@ const googleAuth = (req, res) => {
                     expiresIn: "30d",
                   }
                 );
-                const { _id, name, email } = newUser;
+                const { _id, login, email } = newUser;
                 res.json({
                   token,
-                  user: { _id, name, email },
+                  user: { _id, login, email },
                 });
               });
             }
