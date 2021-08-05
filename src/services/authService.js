@@ -36,7 +36,7 @@ const registration = async ({
   bloodGroup,
   age,
 }) => {
-  const existUser = await User.findOne({ email, login });
+  const existUser = await User.find( {email, login} );
   // const existEmail = await User.findOne({ email });
   // const existLogin = await User.findOne({ login });
   // if (existEmail || existLogin) {
