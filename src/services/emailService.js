@@ -5,12 +5,12 @@ async function sendEmail(login, email) {
     {
       service: "yahoo",
       auth: {
-        user: "slimmomgroup5@yahoo.com",
-        pass: "pweigfhhytxbzhnp",
+        user: process.env.MAIL,
+        pass: process.env.PASS,
       },
-      from: "slimmomgroup5@yahoo.com",
+      from: process.env.MAIL,
     },
-    { from: "slimmomgroup5@yahoo.com" }
+    { from: process.env.MAIL }
   );
   await transporter.sendMail({
     to: email,
