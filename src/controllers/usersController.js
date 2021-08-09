@@ -17,6 +17,7 @@ const registrationController = async (req, res, next) => {
     desiredWeight,
     bloodGroup,
     age,
+    productsNotAllowed
   } = req.body;
   const user = await registration({
     login,
@@ -27,6 +28,7 @@ const registrationController = async (req, res, next) => {
     desiredWeight,
     bloodGroup,
     age,
+    productsNotAllowed
   });
   res.status(201).json({ user });
 };

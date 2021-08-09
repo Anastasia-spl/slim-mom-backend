@@ -35,6 +35,7 @@ const registration = async ({
   desiredWeight,
   bloodGroup,
   age,
+  productsNotAllowed
 }) => {
   // const existUser = await User.find( {email, login} );
   const existEmail = await User.findOne({ email });
@@ -53,6 +54,7 @@ const registration = async ({
     desiredWeight,
     bloodGroup,
     age,
+    productsNotAllowed
   });
   await user.save();
 
